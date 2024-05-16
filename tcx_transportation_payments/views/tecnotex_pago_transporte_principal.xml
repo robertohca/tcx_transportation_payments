@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="pago_transporte_view_tree" model="ir.ui.view">
+      <field name="name">pago_transporte_tree.tree</field>
+      <field name="model">pago.transporte</field>
+      <field name="inherit_id" ref="tecnotex.tecnotex_common_tree"/>
+      <field name="mode">primary</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree position="inside">
+          <field name="num_solicitud" width="80px"/>
+          <field name="a_favor" width="80px"/>
+          <field name="fecha_confeccion" width="80px"/>
+          <field name="fecha_entrada" width="80px"/>
+          <field name="importe" width="40px" class="font-weight-bold"/>
+          <field name="estado_solicitud" widget="badge" decoration-danger="estado_solicitud == 'Pendiente'" decoration-warning="estado_solicitud == 'Enviada a Finanzas'" decoration-success="estado_solicitud == 'Pagada'" decoration-info="estado_solicitud == 'Enviada al Pago'" width="40px" />
+          <field name="state" invisible="1"/>
+        </tree>
+      </field>
+    </record>
+    <record id="view_solicitud_search" model="ir.ui.view">
+      <field name="name">pago_transporte_tree.search</field>
+      <field name="model">pago.transporte</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="estado_solicitud"/>
+          <searchpanel>
+            <field name="estado_solicitud" string="Solicitudes" icon="fa-truck" enable_counters="1"/>
+          </searchpanel>
+        </search>
+      </field>
+    </record>
+    <record id="pago_transporte_view_form" model="ir.ui.view">
+      <field name="name">pago_transporte_form.form</field>
+      <field name="model">pago.transporte</field>
+      <field name="arch" type="xml">
+        <form position="inside">
+          <header class="sticky">
+            <button name="solicitud_enviada_pago" type="object" string="Enviar a Finanzas" class="btn-primary mr-1" icon="fa-send" attrs="{'invisible': [('estado_solicitud', '!=', 'Pendiente')]}"/>
+            <button name="solicitud_pagada" type="object" string="Enviar al Pago" class="btn-primary mr-1" icon="fa-send" attrs="{'invisible': [('estado_solicitud', '!=', 'Enviada a Finanzas')]}"/>
+            <button name="solicitud_pagar" type="object" string="Pagar Solicitud" class="btn-primary mr-1" icon="fa-money" attrs="{'invisible': [('estado_solicitud', '!=', 'Enviada al Pago')]}"/>
+            <button name="solicitud_rechazar" type="object" string="Rechazar Solicitud" class="btn-primary mr-1" icon="fa-minus-circle" attrs="{'invisible': [('estado_solicitud', '!=', 'Enviada al Pago')]}"/>
+            <button name="solicitud_pendiente" type="object" string="Devolver Solicitud" class="btn-primary mr-1" icon="fa-mail-reply" attrs="{'invisible': [('estado_solicitud', '!=', 'Enviada a Finanzas')]}"/>
+            <button name="generate_report_pi" string="Generar PDF" type="object" class="btn-primary" icon="fa-print"/>
+            <field name="estado_solicitud" widget="tcx_statusbar"/>
+            <field name="state" invisible="1"/>
+          </header>
+          <sheet>
+            <widget name="web_ribbon" text="RECHAZADA" bg_color="bg-danger" attrs="{'invisible': [('estado_solicitud', '!=', 'Rechazada')]}"/>
+            <widget name="web_ribbon" text="PAGADA" bg_color="bg-danger" attrs="{'invisible': [('estado_solicitud', '!=', 'Pagada')]}"/>
+            <div class="oe_button_box" name="button_box">
+              <button name="return_action_to_open" type="object" class="oe_stat_button" icon="fa-book" context="{'xml_id':'contrato_action'}" help="Muestra los contratos asociados a esta solicitud">
+                <field name="contract_count" widget="statinfo" string="Contratos"/>
+              </button>
+            </div>
+            <group col="3" string="Datos de la Solicitud">
+              <group>
+                <field name="num_solicitud"/>
+                <field name="num_factura" attrs="{'readonly': ['|', ('estado_solicitud', '=', 'Pagada'), ('estado_solicitud', '=', 'Rechazada')]}"/>
+                <field name="a_favor" options="{'no_create': True, 'no_edit': True}" attrs="{'readonly': ['|', ('estado_solicitud', '=', 'Pagada'), ('estado_solicitud', '=', 'Rechazada')]}"/>
+              </group>
+              <group>
+                <field name="fecha_confeccion"/>
+                <field name="fecha_entrada" attrs="{'readonly': ['|', ('estado_solicitud', '=', 'Pagada'), ('estado_solicitud', '=', 'Rechazada')]}"/>
+              </group>
+              <group>
+                <field name="importe" class="font-weight-bold"/>
+                <field name="currency_id" options="{'no_create': True, 'no_edit': True}" attrs="{'readonly': ['|', ('estado_solicitud', '=', 'Pagada'), ('estado_solicitud', '=', 'Rechazada')]}"/>
+              </group>
+            </group>
+            <group string="Desglose de la solicitud">
+            <notebook>
+              <page string="Cartas de Porte">
+              
+                <field name="carta_ids" nolabel="0" widget="one2many" editable="bottom" attrs="{'readonly': ['|', ('estado_solicitud', '=', 'Pagada'), ('estado_solicitud', '=', 'Rechazada')]}">
+                <tree>
+                  <field name="id_spt" width="40%" class="text-left"/>
+                  <field name="id_spago" width="40%" class="text-left"/>
+                  <field name="id_carta_Porte" width="40%" class="text-left"/>
+                  <field name="tipo_contenedor_id" width="40%"/>
+                  <field name="origen" width="40%"/>
+                  <field name="destino" width="40%"/>
+                  <field name="importe_carta" width="40%" class="font-weight-bold" widget="monetary"/>
+                </tree>
+              </field>
+              </page>
+              <page string="Observaciones">
+                  <field name="observaciones_solicitud" attrs="{'readonly': ['|', ('estado_solicitud', '=', 'Pagada'), ('estado_solicitud', '=', 'Rechazada')]}"/>
+              </page>
+              <page string="Histórico de Estados">
+                <field name="historico" attrs="{'readonly': ['|', ('estado_solicitud', '=', 'Pagada'), ('estado_solicitud', '=', 'Rechazada')]}">
+                                    <tree class="tree_no_open" create="false" delete="false">
+                                        <field name="state"/>
+                                        <field name="user"/>
+                                        <field name="date"/>
+                                        <field name="observation"/>
+                                    </tree>
+                                </field> 
+              </page>
+            </notebook>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <record id="tecnotex_pago_transporte_action" model="ir.actions.act_window">
+      <field name="name">Nueva Solicitud</field>
+      <field name="res_model">pago.transporte</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+                    Registrar una Solicitud de Pago.
+        </p>
+      </field>
+    </record>
+    <menuitem id="tcx_menu_transporte" action="tecnotex_pago_transporte_action" name="TRANSPORTE" web_icon="tecnotex_servicio_pago_transporte,static/img/icon.png" sequence="455" />
+  </data>
+</odoo>

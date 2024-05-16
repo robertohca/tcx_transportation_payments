@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="transportista_import_file_extended_form">
+      <field name="name">transportista.import_file.extended.form</field>
+      <field name="model">transportista</field>
+      <field
+        name="inherit_id"
+        ref="tecnotex_servicio_pago_transporte.transportista_view_form"
+      />
+      <field name="arch" type="xml">
+        <group name="excel" position="after">
+          <div>
+            <label for="import_file" style="font-weight: bold;"/>
+            <field name="import_file" class="oe_inline"/>
+            <field name="import_template_id" invisible="1" force_save="1"/>
+            <label
+              for="preview_file_content"
+              attrs="{'invisible': [('import_file', '=', False)]}"
+              style="font-weight: bold; margin-left: 0.5rem;"
+            />
+            <field
+              name="preview_file_content"
+              attrs="{'invisible': [('import_file', '=', False)]}"
+              force_save="1"
+              widget="boolean_toggle"
+              class="oe_inline"
+            />
+          </div>
+        </group>
+      </field>
+    </record>
+    <record model="xlsx.template" id="tarifa_transportista_excel">
+      <field name="res_model">transportista</field>
+      <field name="name">Tarifas del Transportista</field>
+      <field name="description">Plantilla para el importar las tarifas.</field>
+      <field name="input_instruction">
+        {
+          '__IMPORT__': {
+            'Tarifa': {
+              'tarifa_id': {
+                'A2': 'origen',
+                'B2': 'destino',
+                'C2': 'distancia',
+                'D2': 'tipo_contenedor',
+                'E2': 'precio_km_ton',
+              }
+            }
+          },
+        }
+      </field>
+    </record>
+  </data>
+</odoo>

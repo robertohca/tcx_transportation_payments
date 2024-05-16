@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+    <record id="seq_tecnotex_pago_transporte" model="ir.sequence">
+      <field name="name">omega_sequencer</field>
+      <field name="code">pago_transporte_seq</field>
+      <field name="prefix"/>
+      <field name="padding">4</field>
+      <!-- cantidad de digitos luego del prefix -->
+    </record>
+  </data>
+</odoo>

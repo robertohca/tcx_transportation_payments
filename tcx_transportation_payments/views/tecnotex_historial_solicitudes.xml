@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="pago_transporte_view_tree" model="ir.ui.view">
+      <field name="name">pago_transporte_tree.tree</field>
+      <field name="model">pago.transporte</field>
+      <field name="inherit_id" ref="tecnotex.tecnotex_common_tree"/>
+      <field name="mode">primary</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree position="attributes">
+          <attribute name="string">Pedido</attribute>
+        </tree>
+        <tree position="inside">
+          <field name="num_solicitud" width="80px"/>
+          <field name="a_favor" width="80px"/>
+          <field name="fecha_confeccion" width="80px"/>
+          <field name="fecha_entrada" width="80px"/>
+          <field name="importe" width="40px"/>
+          <field name="estado_solicitud" widget="badge" decoration-danger="estado_solicitud == 'Pendiente'" decoration-warning="estado_solicitud == 'Enviado al Pago'" decoration-success="estado_solicitud == 'Pagado'" width="40px"/>
+          <field name="state" invisible="1"/>
+        </tree>
+      </field>
+    </record>
+    <record id="solicitud_action_window_view_tree" model="ir.actions.act_window.view">
+      <field name="sequence">1</field>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="pago_transporte_view_tree"/>
+      <field name="act_window_id" ref="action2"/>
+    </record>
+    <record id="view_solicitud_search" model="ir.ui.view">
+      <field name="name">pago_transporte_tree.search</field>
+      <field name="model">pago.transporte</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="estado_solicitud"/>
+          <searchpanel>
+            <field name="estado_solicitud" string="Solicitudes" icon="fa-truck" enable_counters="1"/>
+          </searchpanel>
+        </search>
+      </field>
+    </record>
+    <record id="pago_transporte_view_form" model="ir.ui.view">
+      <field name="name">pago_transporte_form.form</field>
+      <field name="model">pago.transporte</field>
+      <field name="arch" type="xml">
+        <form position="inside">
+          <header>
+            <field name="estado_solicitud" widget="tcx_statusbar"/>
+            <field name="state" invisible="1"/>
+          </header>
+          <sheet>
+            <group col="3" string="Datos de la Solicitud">
+              <group>
+                <field name="num_solicitud"/>
+                <field name="num_factura"/>
+                <field name="a_favor"/>
+              </group>
+              <group>
+                <field name="fecha_confeccion"/>
+                <field name="fecha_entrada"/>
+              </group>
+              <group>
+                <field name="importe"/>
+                <field name="currency_id"/>
+              </group>
+            </group>
+            <group string="Desglose de la solicitud">
+              <field name="carta_ids" nolabel="0">
+                <tree>
+                  <field name="id_spt" width="80px"/>
+                  <field name="id_spago" width="80px"/>
+                  <field name="id_carta_Porte" width="80px"/>
+                  <field name="num_contrato" width="80px"/>
+                  <field name="id_contrato" width="80px"/>
+                  <field name="importe_carta" width="80px"/>
+                </tree>
+              </field>
+            </group>
+            <group string="Otros datos">
+              <field name="observaciones_solicitud" widget="tcx_char_field" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <record id="action2" model="ir.actions.act_window">
+      <field name="name">Historial</field>
+      <field name="res_model">pago.transporte</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+                    Registrar una Solicitud de Pago.
+                </p>
+      </field>
+    </record>
+    <menuitem id="tecnotex_menu_historial" action="action2" parent="tcx_menu_transporte" name="Historial" sequence="131" />
+  </data>
+</odoo>

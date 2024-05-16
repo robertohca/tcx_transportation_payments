@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="reporte_solicitud_pago" model="ir.actions.report">
+      <field name="name">Solicitud Pago Reporte</field>
+      <field name="model">pago.transporte</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">tecnotex_servicio_pago_transporte.tcx_reporte_solicitud_pago</field>
+    </record>
+    <record id="action_solicitud_pago" model="ir.actions.act_window">
+      <field name="name">Reporte Solicitud Pago</field>
+      <field name="res_model">reporte.solicitud</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+    <record id="view_solicitud_pago_wizard" model="ir.ui.view">
+      <field name="name">Solicitud Pago form</field>
+      <field name="model">reporte.solicitud</field>
+      <field name="arch" type="xml">
+        <form string="Reporte Solicitud Pago">
+          <group>
+            <group>
+              <field name="a_favor_reporte"/>
+            </group>
+            <group>
+            </group>
+          </group>
+          <footer>
+            <button name="generate_report_pi" string="Imprimir" type="object" class="btn-primary" />
+            <button string="Cancelar" class="btn-secondary" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+  </data>
+</odoo>

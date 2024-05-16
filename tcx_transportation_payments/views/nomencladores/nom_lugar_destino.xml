@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <record model="ir.actions.act_window" id="nom_lugar_destino_action">
+      <field name="name">Lugar de destino</field>
+      <field name="res_model">lugar.destino</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Registrar un lugar de destino.
+        </p>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="nom_lugar_destino_tree">
+      <field name="name">tcx_transporte.nom.lugar_destino.tree</field>
+      <field name="model">lugar.destino</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="denominacion"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="nom_lugar_destino_form">
+      <field name="name">tcx_transporte.nom.lugar_destino.form</field>
+      <field name="model">lugar.destino</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group col="2">
+              <group>
+                <field name="denominacion"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <menuitem
+      id="nom_lugar_destino"
+      parent="tcx_menu_configuracion"
+      name="Lugar de destino"
+      action="nom_lugar_destino_action"
+    />
+  </data>
+</odoo>

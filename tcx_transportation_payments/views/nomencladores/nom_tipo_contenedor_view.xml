@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <record model="ir.actions.act_window" id="nom_tipo_de_contenedor_action">
+      <field name="name">Tipo de contenedor</field>
+      <field name="res_model">tipo.contenedor</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Registrar un Tipo de contenedor.
+        </p>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="nom_tipo_de_contenedor_tree">
+      <field name="name">tcx_transporte.nom.tipo_de_contenedor.tree</field>
+      <field name="model">tipo.contenedor</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="denominacion" string="Denominación"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="nom_tipo_de_contenedor_form">
+      <field name="name">tcx_transporte.nom.tipo_de_contenedor.form</field>
+      <field name="model">tipo.contenedor</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group col="2">
+              <group>
+                <field name="denominacion" string="Denominación"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <menuitem
+      id="nom_tipo_de_contenedor"
+      parent="tcx_menu_configuracion"
+      name="Tipo de contenedor"
+      action="nom_tipo_de_contenedor_action"
+    />
+  </data>
+</odoo>

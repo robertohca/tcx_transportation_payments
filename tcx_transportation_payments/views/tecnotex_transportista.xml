@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="transportista_view_tree" model="ir.ui.view">
+      <field name="name">transportista_tree.tree</field>
+      <field name="model">transportista</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="codigo"/>
+          <field name="nombre_transp"/>
+          <field name="address_fields_holder"/>
+          <field name="contact_info_fields_holder"/>
+        </tree>
+      </field>
+    </record>
+    <record id="transportista_view_form" model="ir.ui.view">
+      <field name="name">transportista_form.form</field>
+      <field name="model">transportista</field>
+      <field name="arch" type="xml">
+        <form position="inside">
+          <header>
+          </header>
+          <sheet>
+            <group col='2' colspan='3'>
+              <group>
+                <field name="nombre_transp" style="text-aling:center; with:50%; padding:2px; margin:0px" widget="tcx_char_field" />
+              </group>
+              <group>
+                <field name="codigo" style="text-aling:center; with: 10%" widget="tcx_integer_field" />
+              </group>
+            </group>
+            <group col='2' colspan='3'>
+              <group>
+                <field name="direccion" style="text-aling:center; with: 10%"/>
+              </group>
+            </group>
+            <group col='2' colspan='5'>
+              <group>
+                <field name="address_fields_holder"/>
+              </group>
+              <group>
+                <field name="contact_info_fields_holder"/>
+              </group>
+            </group>
+            <notebook>
+              <page string="Oficina en Cuba">
+                <field name="oficinas_en_cuba_ids" mode="kanban"/>
+              </page>
+              <page string="Representante">
+                <field name="selected_repres" invisible="1"/>
+                <field name="representantes_ids">
+                  <tree editable="bottom">
+                    <field name="representante_id" widget="tcx_many2one_conditioned_selection" options="{'enable_multiple_selection': True}" />
+                    <field name="resumen"/>
+                    <field name="correo_readonly"/>
+                    <field name="telefono_readonly"/>
+                    <field name="active_prov" widget="boolean_toggle"/>
+                  </tree>
+                </field>
+              </page>
+              <page string="Beneficiario">
+                <field name="selected_benes" invisible="1"/>
+                <field name="beneficiarios_ids">
+                  <tree editable="bottom">
+                    <field name="beneficiario_id" widget="tcx_many2one_conditioned_selection" options="{'enable_multiple_selection': True}" />
+                    <field name="resumen"/>
+                    <field name="fecha_inicio"/>
+                    <field name="fecha_fin"/>
+                    <field name="excepcional_repr"/>
+                    <field name="active_prov" widget="boolean_toggle"/>
+                  </tree>
+                </field>
+              </page>
+              <page string="Tarifa">
+                <group name="excel">
+                  <field name="tarifa_id">
+                    <tree string="">
+                      <field name="origen"/>
+                      <field name="destino"/>
+                      <field name="distancia"/>
+                      <field name="tipo_contenedor"/>
+                      <field name="precio_km_ton"/>
+                    </tree>
+                  </field>
+                </group>
+              </page>
+            </notebook>
+            <group>
+              <field
+                name="observaciones"
+                widget="tcx_char_field"
+              />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <record id="action1" model="ir.actions.act_window">
+      <field name="name">Transportistas</field>
+      <field name="res_model">transportista</field>
+      <field name="view_mode">list,form</field>
+    </record>
+    <record model="ir.ui.view" id="proveedor_oficina_en_cuba_tree">
+      <field name="name">oficina_transportista_tree.tree</field>
+      <field name="model">oficina.transportista</field>
+      <field name="inherit_id" ref="tecnotex.tecnotex_common_tree"/>
+      <field name="mode">primary</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree position="attributes">
+          <attribute name="string">Oficina en Cuba</attribute>
+        </tree>
+        <tree position="inside">
+          <field name="vendedor_oficina_cuba"/>
+          <field name="cargo_oficina_cuba"/>
+          <field name="acreditacion_en_Cuba_oficina_cuba"/>
+          <field name="fecha_de_vencimiento_oficina_cuba"/>
+          <field name="address_fields_holder"/>
+          <field name="contact_info_fields_holder"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="proveedor_oficina_en_cuba_form">
+      <field name="name">oficina_transportista_form.form</field>
+      <field name="model">oficina.transportista</field>
+      <field name="inherit_id" ref="tecnotex.tecnotex_common_form"/>
+      <field name="mode">primary</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form position="attributes">
+          <attribute name="string">Oficina en Cuba</attribute>
+        </form>
+        <form position="inside">
+          <group>
+            <group>
+              <field name="vendedor_oficina_cuba" style="text-aling:center; with: 10%" widget="tcx_char_field" />
+              <field name="cargo_oficina_cuba" style="text-aling:center; with: 10%" widget="tcx_char_field" />
+              <field name="correo_oficina_cuba" style="text-aling:center; with: 10%"/>
+            </group>
+            <group>
+              <field name="acreditacion_en_Cuba_oficina_cuba"/>
+              <field name="fecha_de_vencimiento_oficina_cuba" style="text-aling:center; with: 10%" />
+            </group>
+          </group>
+          <group>
+            <group>
+              <field name="address_fields_holder"/>
+              <field name="resumen" invisible="1"/>
+            </group>
+            <group>
+              <field name="contact_info_fields_holder"/>
+            </group>
+          </group>
+          <group>
+            <field name="address_fields_holder"/>
+          </group>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="proveedor_oficina_en_cuba_kanban">
+      <field name="name">oficina_transportista_kanban.kanban</field>
+      <field name="model">oficina.transportista</field>
+      <field name="arch" type="xml">
+        <kanban>
+          <field name="vendedor_oficina_cuba"/>
+          <field name="cargo_oficina_cuba"/>
+          <field name="acreditacion_en_Cuba_oficina_cuba"/>
+          <field name="fecha_de_vencimiento_oficina_cuba"/>
+          <field name="correo_oficina_cuba"/>
+          <field name="resumen"/>
+          <templates>
+            <t t-name="kanban-box">
+              <div class="oe_kanban_card oe_kanban_global_click" style="width: 50%">
+                <div class="row">
+                  <span style="margin-left: 2%">
+                    <strong>Vendedor: </strong>
+                    <t t-if="record.vendedor_oficina_cuba.value" t-esc="record.vendedor_oficina_cuba.value" />
+                    <t t-else="">Sin especificar</t>
+                  </span>
+                </div>
+                <div class="row">
+                  <span style="margin-left: 2%">
+                    <strong>Cargo: </strong>
+                    <t t-if="record.cargo_oficina_cuba.value" t-esc="record.cargo_oficina_cuba.value" />
+                    <t t-else="">Sin especificar</t>
+                  </span>
+                </div>
+                <div class="row">
+                  <span style="margin-left: 2%">
+                    <strong>Acreditación en Cuba: </strong>
+                    <t t-esc="record.acreditacion_en_Cuba_oficina_cuba.value"/>
+                  </span>
+                </div>
+                <div class="row">
+                  <span style="margin-left: 2%">
+                    <strong>Fecha de vencimiento: </strong>
+                    <t t-if="record.fecha_de_vencimiento_oficina_cuba.value" t-esc="record.fecha_de_vencimiento_oficina_cuba.value" />
+                    <t t-else="">Sin especificar</t>
+                  </span>
+                </div>
+                <div class="row">
+                  <span style="margin-left: 2%">
+                    <strong>Correo: </strong>
+                    <t t-esc="record.correo_oficina_cuba.value"/>
+                  </span>
+                </div>
+                <div class="row">
+                  <span style="margin-left: 2%">
+                    <strong>Dirección: </strong>
+                    <t t-if="record.resumen.value" t-esc="record.resumen.value" />
+                    <t t-else="">Sin especificar</t>
+                  </span>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+    <menuitem id="tecnotex_menu_transportista" action="action1" parent="tcx_menu_configuracion" name="Transportistas" sequence="1" />
+  </data>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.actions.server" id="pagar_solicitud_action">
+            <field name="name">Pagar solicitud(es)</field>
+            <field name="model_id" ref="model_pago_transporte"/>
+            <field name="binding_model_id" ref="model_pago_transporte"/>
+            <field name="state">code</field>
+            <field name="code">
+            if records:
+                records.solicitud_pagada()
+            </field>
+        </record>
+        <record model="ir.actions.server" id="enviar_solicitud_action">
+            <field name="name">Enviar solicitud(es) a Finanzas</field>
+            <field name="model_id" ref="model_pago_transporte"/>
+            <field name="binding_model_id" ref="model_pago_transporte"/>
+            <field name="state">code</field>
+            <field name="code">
+            if records:
+                records.solicitud_enviada_pago()
+            </field>
+        </record>
+        <record model="ir.actions.server" id="devolver_solicitud_action">
+            <field name="name">Devolver solicitud(es)</field>
+            <field name="model_id" ref="model_pago_transporte"/>
+            <field name="binding_model_id" ref="model_pago_transporte"/>
+            <field name="state">code</field>
+            <field name="code">
+            if records:
+                records.solicitud_pendiente()
+            </field>
+        </record>
+    </data>
+</odoo>

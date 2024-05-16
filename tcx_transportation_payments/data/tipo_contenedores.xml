@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+    <record id="tipo_contenedores_data1" model="tipo.contenedor">
+      <field name="denominacion">Vagón Seco</field>
+    </record>
+    <record id="tipo_contenedores_data2" model="tipo.contenedor">
+      <field name="denominacion">Vagón Refrigerado</field>
+    </record>
+    <record id="tipo_contenedores_data3" model="tipo.contenedor">
+      <field name="denominacion">Plancha</field>
+    </record>
+    <record id="tipo_contenedores_data4" model="tipo.contenedor">
+      <field name="denominacion">Furgón</field>
+    </record>
+  </data>
+</odoo>

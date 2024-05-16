@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+    <record id="puertos_data" model="lugar.origen.destino">
+      <field name="denominacion">Habana</field>
+    </record>
+    <record id="puertos_data1" model="lugar.origen.destino">
+      <field name="denominacion">Varadero</field>
+    </record>
+    <record id="puertos_data2" model="lugar.origen.destino">
+      <field name="denominacion">Mariel</field>
+    </record>
+  </data>
+</odoo>

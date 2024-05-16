@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <menuitem
+      id="tcx_menu_configuracion"
+      parent="tcx_menu_transporte"
+      name="Configuración"
+      sequence="4"
+    /> 
+    </data>
+</odoo>

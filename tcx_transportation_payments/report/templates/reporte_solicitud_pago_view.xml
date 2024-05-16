@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="tcx_reporte_solicitud_pago">
+      <t t-call="web.html_container">
+        <t t-call="web.external_layout">
+          <div class="page">
+            <style type="text/css">
+                          .tg  {border-collapse:collapse;border-spacing:0;}
+                          .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+                          .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+                          .tg .tg-lboi{border-color:inherit;text-align:left;vertical-align:middle}
+                          .tg .tg-lupf{font-weight:bold;background-color:#c0c0c0;color:#000000;border-color:inherit;text-align:left;vertical-align:middle}
+                          .tg .tg-0pky{border-color:inherit;text-align:center}
+            </style>
+            <div class="text-left">
+              <h6>Reporte de Solicitud de Pago</h6>
+              <b>A Favor de:</b>
+              <span t-esc="a_favor_d"/>
+              <br/>
+              <b>Fecha impresión &amp;nbsp;</b>
+              <span t-esc="fecha_impresion_d"/>
+            </div>
+            <br/>
+            <table class="tg">
+              <tr>
+                <th class="tg-lupf">Id. SPT</th>
+                <th class="tg-lupf">No. de Contrato</th>
+                <th class="tg-lupf">Importe Carta</th>
+              </tr>
+              <t t-foreach="elem" t-as="e">
+                <t t-foreach="e['seleccion_cartas_d']" t-as="spi">
+                  <tr>
+                    <td class="tg-lboi">
+                      <span>
+                        <t t-esc="spi['id_spt']"/>
+                      </span>
+                    </td>
+                    <td class="tg-lboi">
+                      <span>
+                        <t t-esc="spi['num_contrato']"/>
+                      </span>
+                    </td>
+                    <td class="tg-lboi text-right">
+                      <span>
+                        <t t-esc="spi['importe_carta']"/>
+                      </span>
+                    </td>
+                  </tr>
+                </t>
+              </t>
+              <tr>
+                <td class="tg-0pky" colspan="2">
+                  <b>Total de cartas: </b>
+                  <span t-esc="total_cartas_d"/>
+                </td>
+                <td class="tg-0pky" colspan="2">
+                  <b>Importe Total de Cartas: </b>
+                  <span t-esc="importe_cartas_total_d"/>
+                </td>
+              </tr>
+            </table>
+            <br/>
+            <br/>
+            <div class="text-right">
+              <b>Emitido por: &amp;nbsp;</b>
+              <span t-esc="emitido_por_d"/>
+              <br/>
+              <b>Rol: &amp;nbsp;</b>
+            </div>
+          </div>
+        </t>
+      </t>
+    </template>
+  </data>
+</odoo>
