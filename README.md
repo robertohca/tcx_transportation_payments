@@ -17,4 +17,4 @@ This repository contains the Payment Request Module for Transportation Services,
 
 ![List View](https://github.com/robertohca/tcx_transportation_payments/blob/main/tcx_transportation_payments/static/description/list_view.png)
 
-![Wizard}(https://github.com/robertohca/tcx_transportation_payments/blob/main/tcx_transportation_payments/static/description/wizard.png)
+![Wizard](https://github.com/robertohca/tcx_transportation_payments/blob/main/tcx_transportation_payments/static/description/wizard.png)
